@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tikra d.o.o. — Ognjevarni premazi</title>
+  <meta name="description" content="Tikra d.o.o. proizvaja certificirane ognjevarno premaze za zaščito jeklenih in lesenih konstrukcij od leta 1992." />
+  <meta name="keywords" content="ognjevarni premaz, požarna zaščita, TERMOSTOP, brandschutz, fire protection coating, intumescent" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23F0C300'/><text y='.9em' font-size='70' x='14' fill='%23111111' font-family='system-ui' font-weight='900'>T</text></svg>" />
+</head>
+
+<body x-data="tikraApp()" x-init="init()" @click="langMenuOpen = false">
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav class="nav" :class="{ 'nav--scrolled': navScrolled, 'nav--dark': currentSection === 'home' && !navLight }">
+    <div class="container">
+      <div class="nav__inner">
+
+        <!-- Logo -->
+        <div class="nav__logo" @click="navigate('home')" style="cursor:pointer; gap: var(--space-2)">
+          <img src="images/tikra-logo2.png" alt="TIKRA" style="height:44px; width:auto; display:block;" />
+          <div class="nav__logo-sub" style="font-size: 0.7rem; letter-spacing: 0.05em;">d.o.o.</div>
+        </div>
+
+        <!-- Desktop Links -->
+        <div class="nav__links">
+          <template x-for="item in ['home','products','references','faq','news','contact']" :key="item">
+            <a class="nav__link" :class="{ 'nav__link--active': currentSection === item }"
+               @click="navigate(item)" x-text="t.nav[item]" href="javascript:void(0)"></a>
+          </template>
+        </div>
+
+        <!-- Actions -->
+        <div class="nav__actions">
+
+          <!-- Language Toggle Desktop -->
+          <div class="lang-toggle" @click.stop>
+            <button class="lang-toggle__btn" @click="langMenuOpen = !langMenuOpen">
+              <span x-text="langFlag()" style="font-size:1.1em; line-height:1"></span>
+              <span x-text="langLabel()"></span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="lang-toggle__dropdown" x-show="langMenuOpen" x-transition>
+              <div class="lang-option" :class="{ 'lang-option--active': currentLang === 'sl' }" @click="setLang('sl')">
+                <span class="lang-flag">🇸🇮</span> Slovenščina
+              </div>
+              <div class="lang-option" :class="{ 'lang-option--active': currentLang === 'en' }" @click="setLang('en')">
+                <span class="lang-flag">🇬🇧</span> English
+              </div>
+              <div class="lang-option" :class="{ 'lang-option--active': currentLang === 'de' }" @click="setLang('de')">
+                <span class="lang-flag">🇩🇪</span> Deutsch
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA Button (desktop) -->
+          <a class="btn btn--primary" href="javascript:void(0)"
+             @click="navigate('contact')" x-text="t.nav.contact"
+             style="display:none" x-show="currentSection !== 'contact'"></a>
+
+          <!-- Hamburger -->
+          <button class="nav__hamburger" :class="{ 'nav__hamburger--open': mobileMenuOpen }"
+                  @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="nav__mobile" :class="{ 'nav__mobile--open': mobileMenuOpen }">
+    <template x-for="item in ['home','products','references','faq','news','contact']" :key="item">
+      <a class="nav__link" :class="{ 'nav__link--active': currentSection === item }"
+         @click="navigate(item); mobileMenuOpen = false" x-text="t.nav[item]" href="javascript:void(0)"></a>
+    </template>
+    <div class="lang-options">
+      <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'sl' }" @click="setLang('sl')">🇸🇮 SLO</button>
+      <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'en' }" @click="setLang('en')">🇬🇧 ENG</button>
+      <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'de' }" @click="setLang('de')">🇩🇪 DEU</button>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       HOME SECTION
+  ═══════════════════════════════════════════ -->
+  <div x-show="currentSection === 'home'" x-transition:enter="section-view">
+
+    <!-- Hero -->
+    <section class="hero">
+      <!-- Ghost background number (60 min protection) -->
+      <div class="hero__ghost" aria-hidden="true">60</div>
+
+      <div class="container" style="position:relative; z-index:2; display:flex; flex-direction:column; flex:1">
+
+        <!-- Top info bar -->
+        <div class="hero__topbar">
+          <div class="hero__topbar-left"
+               x-text="currentLang === 'sl' ? 'Certificirani ognjevarni premazi' : currentLang === 'de' ? 'Zertifizierte Brandschutzbeschichtungen' : 'Certified fire-resistant coatings'">
+          </div>
+          <div class="hero__topbar-right">
+            <span>Tikra d.o.o.</span>
+            <span class="hero__topbar-sep">/</span>
+            <span>Borovnica, SI</span>
+            <span class="hero__topbar-sep">/</span>
+            <span>Est. 1992</span>
+          </div>
+        </div>
+
+        <!-- Main body — centered -->
+        <div class="hero__body">
+
+          <!-- Copy -->
+          <div class="hero__left" style="width:100%">
+
+            <div class="hero__eyebrow"
+                 x-text="currentLang === 'sl' ? 'Zaščita jeklenih in lesenih konstrukcij' : currentLang === 'de' ? 'Schutz für Stahl- und Holzkonstruktionen' : 'Protection for steel and wood structures'">
+            </div>
+
+            <h1 class="hero__headline">
+              <span class="hero__hl-top" x-text="t.hero.heading.split('\n')[0]"></span>
+              <span class="hero__hl-bot" x-text="t.hero.heading.split('\n')[1]"></span>
+            </h1>
+
+            <p class="hero__desc" x-text="t.hero.subheading"></p>
+
+
+            <div class="hero__actions">
+              <a class="btn btn--primary btn--lg" href="javascript:void(0)"
+                 @click="navigate('products')" x-text="t.hero.cta"></a>
+              <a class="btn btn--dim btn--lg" href="javascript:void(0)"
+                 @click="navigate('contact')" x-text="t.hero.ctaSecondary"></a>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Marquee: Companies that trust us -->
+        <div class="hero__marquee-wrap">
+          <div class="hero__marquee-label"
+               x-text="currentLang === 'sl' ? 'Zaupajo nam' : currentLang === 'de' ? 'Sie vertrauen uns' : 'Trusted by'">
+          </div>
+          <div class="hero__marquee">
+            <div class="hero__marquee-track">
+              <div class="hero__marquee-group">
+                <div class="hero__marquee-item"><img src="images/logos/krka.svg" alt="Krka"></div>
+                <div class="hero__marquee-item"><img src="images/logos/lidl.svg" alt="Lidl"></div>
+                <div class="hero__marquee-item"><img src="images/logos/spar.svg" alt="Spar"></div>
+                <div class="hero__marquee-item"><img src="images/logos/hella.svg" alt="Hella"></div>
+                <div class="hero__marquee-item"><img src="images/logos/planica.png" alt="Planica"></div>
+                <div class="hero__marquee-item"><img src="images/logos/kempinski.svg" alt="Kempinski"></div>
+                <div class="hero__marquee-item"><img src="images/logos/narodna-galerija.png" alt="Narodna galerija"></div>
+                <div class="hero__marquee-item"><img src="images/logos/minsk-arena.svg" alt="Minsk Arena"></div>
+              </div>
+              <div class="hero__marquee-group" aria-hidden="true">
+                <div class="hero__marquee-item"><img src="images/logos/krka.svg" alt="Krka"></div>
+                <div class="hero__marquee-item"><img src="images/logos/lidl.svg" alt="Lidl"></div>
+                <div class="hero__marquee-item"><img src="images/logos/spar.svg" alt="Spar"></div>
+                <div class="hero__marquee-item"><img src="images/logos/hella.svg" alt="Hella"></div>
+                <div class="hero__marquee-item"><img src="images/logos/planica.png" alt="Planica"></div>
+                <div class="hero__marquee-item"><img src="images/logos/kempinski.svg" alt="Kempinski"></div>
+                <div class="hero__marquee-item"><img src="images/logos/narodna-galerija.png" alt="Narodna galerija"></div>
+                <div class="hero__marquee-item"><img src="images/logos/minsk-arena.svg" alt="Minsk Arena"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom stats bar -->
+        <div class="hero__statsbar">
+          <template x-for="stat in t.stats" :key="stat.label">
+            <div class="hero__statitem">
+              <div class="hero__statitem-val" x-text="stat.value"></div>
+              <div class="hero__statitem-label" x-text="stat.label"></div>
+            </div>
+          </template>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Products Overview (Home) -->
+    <section class="section" style="background: var(--bg-page)">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.products.sectionHeading"></div>
+          <h2 class="section-heading" x-text="t.products.sectionHeading"></h2>
+          <p class="section-subheading" x-text="t.products.sectionSubheading"></p>
+        </div>
+
+        <div class="products-grid">
+          <template x-for="product in t.products.items" :key="product.id">
+            <div class="product-card" @click="navigate('products')">
+              <div class="product-card__header">
+                <div class="product-card__icon" :style="`background: ${product.color}1A`">
+                  <!-- Steel icon -->
+                  <template x-if="product.id === 'termostop'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                  </template>
+                  <!-- Wood/leaf icon -->
+                  <template x-if="product.id === 'f50'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22V12M12 12C12 7 17 2 22 2c0 5-5 10-10 10zM12 12C12 7 7 2 2 2c0 5 5 10 10 10z"/>
+                    </svg>
+                  </template>
+                  <!-- Droplet/bio icon -->
+                  <template x-if="product.id === 'bio'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+                    </svg>
+                  </template>
+                </div>
+                <div class="product-card__badge" :style="`background: ${product.color}18; color: ${product.color}`" x-text="product.badge"></div>
+                <div class="product-card__name" x-text="product.name"></div>
+                <div class="product-card__tagline" x-text="product.tagline"></div>
+              </div>
+
+              <div class="product-card__body">
+                <p class="product-card__desc" x-text="product.description"></p>
+                <ul class="product-card__features">
+                  <template x-for="feat in product.features.slice(0,3)" :key="feat">
+                    <li class="product-card__feature">
+                      <div class="product-card__check" :style="`background: ${product.color}15`">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                          <path d="M2 5l2 2 4-4" :stroke="product.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <span x-text="feat"></span>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- References Teaser (Home) -->
+    <section class="section" style="background: var(--gray-50)">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.references.sectionHeading"></div>
+          <h2 class="section-heading" x-text="t.references.sectionHeading"></h2>
+          <p class="section-subheading" x-text="t.references.sectionSubheading"></p>
+        </div>
+
+        <!-- Highlight grid of notable projects -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-3); margin-bottom: var(--space-10)">
+          <template x-for="proj in [...t.references.sloveniaProjects.slice(0,6), ...t.references.abroadProjects.slice(0,2)]" :key="proj.name">
+            <div class="reference-item">
+              <div class="reference-item__icon">
+                <template x-if="proj.logo">
+                  <img :src="proj.logo" :alt="proj.name" class="reference-item__logo-img"
+                       @error="$el.style.display='none'; $el.nextElementSibling.style.display='flex'" />
+                </template>
+                <span class="reference-item__initials" x-show="!proj.logo" x-text="proj.name.charAt(0)"></span>
+              </div>
+              <div class="reference-item__text">
+                <div class="reference-item__name" x-text="proj.name"></div>
+                <div class="reference-item__desc" x-text="proj.desc"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <div class="text-center">
+          <a class="btn btn--outline" href="javascript:void(0)" @click="navigate('references')"
+             x-text="currentLang === 'sl' ? 'Vse reference →' : currentLang === 'de' ? 'Alle Referenzen →' : 'All references →'"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="container">
+        <div class="cta-banner__inner">
+          <h2 x-text="currentLang === 'sl' ? 'Zaščitite svojo konstrukcijo danes' : currentLang === 'de' ? 'Schützen Sie Ihre Konstruktion noch heute' : 'Protect your structure today'"></h2>
+          <p x-text="currentLang === 'sl' ? 'Stopite v stik z nami za brezplačno svetovanje in ponudbo.' : currentLang === 'de' ? 'Kontaktieren Sie uns für eine kostenlose Beratung und ein Angebot.' : 'Contact us for a free consultation and quote.'"></p>
+          <div class="cta-banner__actions">
+            <a class="btn btn--primary btn--lg" href="javascript:void(0)" @click="navigate('contact')"
+               x-text="t.nav.contact"></a>
+            <a class="btn btn--inverse btn--lg" href="javascript:void(0)" @click="navigate('products')"
+               x-text="t.nav.products"></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /home -->
+
+
+  <!-- ═══════════════════════════════════════════
+       PRODUCTS SECTION
+  ═══════════════════════════════════════════ -->
+  <div x-show="currentSection === 'products'" x-transition:enter="section-view" style="display:none" class="page-top">
+    <section class="section section--lg">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.products.sectionHeading"></div>
+          <h1 class="section-heading" x-text="t.products.sectionHeading"></h1>
+          <p class="section-subheading" x-text="t.products.sectionSubheading"></p>
+        </div>
+
+        <!-- Products Full Cards -->
+        <div style="display: flex; flex-direction: column; gap: var(--space-6); margin-bottom: var(--space-16)">
+          <template x-for="product in t.products.items" :key="product.id">
+            <div style="border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; background: var(--white); cursor: pointer; transition: box-shadow var(--duration) var(--ease);"
+                 @click="toggleProduct(product.id)"
+                 :style="activeProduct === product.id ? `border-color: ${product.color}; box-shadow: 0 0 0 3px ${product.color}20` : ''">
+
+              <!-- Card Header (always visible) -->
+              <div style="display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-6); align-items: center; padding: var(--space-6) var(--space-8);">
+                <div class="product-card__icon" style="width:56px; height:56px;" :style="`background: ${product.color}15`">
+                  <template x-if="product.id === 'termostop'">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                  </template>
+                  <template x-if="product.id === 'f50'">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22V12M12 12C12 7 17 2 22 2c0 5-5 10-10 10zM12 12C12 7 7 2 2 2c0 5 5 10 10 10z"/>
+                    </svg>
+                  </template>
+                  <template x-if="product.id === 'bio'">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+                    </svg>
+                  </template>
+                </div>
+                <div>
+                  <div style="display:flex; align-items:center; gap: var(--space-3); margin-bottom: var(--space-2)">
+                    <span class="product-card__badge"
+                          :style="`background: ${product.color}15; color: ${product.color}`"
+                          x-text="product.badge"></span>
+                  </div>
+                  <h2 style="font-size: var(--text-2xl); font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary);" x-text="product.name"></h2>
+                  <p style="font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-1);" x-text="product.tagline"></p>
+                </div>
+                <div>
+                  <div style="width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition: all var(--duration) var(--ease);"
+                       :style="activeProduct === product.id ? `background: ${product.color}; color: white; transform: rotate(45deg)` : 'background: var(--gray-100); color: var(--text-muted)'">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded Content -->
+              <div x-show="activeProduct === product.id" x-transition:enter="section-enter" style="border-top: 1px solid var(--border)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
+                  <!-- Left: Description -->
+                  <div style="padding: var(--space-8); border-right: 1px solid var(--border)">
+                    <h3 style="font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-4); color: var(--text-primary);"
+                        x-text="currentLang === 'sl' ? 'Opis' : currentLang === 'de' ? 'Beschreibung' : 'Description'"></h3>
+                    <p style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-6);" x-text="product.description"></p>
+
+                    <div style="padding: var(--space-4); border-radius: var(--radius-md); font-size: var(--text-xs); color: var(--text-muted); background: var(--gray-50); border: 1px solid var(--border); font-style: italic;" x-text="product.system"></div>
+                  </div>
+
+                  <!-- Right: Features -->
+                  <div style="padding: var(--space-8); background: var(--gray-50)">
+                    <h3 style="font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-4); color: var(--text-primary);"
+                        x-text="currentLang === 'sl' ? 'Lastnosti' : currentLang === 'de' ? 'Eigenschaften' : 'Features'"></h3>
+                    <ul style="display: flex; flex-direction: column; gap: var(--space-3)">
+                      <template x-for="feat in product.features" :key="feat">
+                        <li style="display: flex; align-items: flex-start; gap: var(--space-3); font-size: var(--text-sm); color: var(--text-secondary)">
+                          <div style="width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;"
+                               :style="`background: ${product.color}15`">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                              <path d="M2 5l2 2 4-4" :stroke="product.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </div>
+                          <span x-text="feat"></span>
+                        </li>
+                      </template>
+                    </ul>
+
+                    <div style="margin-top: var(--space-8)">
+                      <a class="btn btn--primary" href="javascript:void(0)" @click.stop="navigate('contact')"
+                         x-text="currentLang === 'sl' ? 'Povpraševanje' : currentLang === 'de' ? 'Anfrage senden' : 'Request a quote'"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </template>
+        </div>
+
+        <!-- Documentation -->
+        <div class="doc-card">
+          <div class="doc-card__text">
+            <h3 x-text="t.products.docHeading"></h3>
+            <p x-text="t.products.docText"></p>
+          </div>
+          <a class="btn btn--primary btn--lg" href="mailto:info.tikra@gmail.com"
+             x-text="t.products.docCta" style="flex-shrink: 0;"></a>
+        </div>
+
+      </div>
+    </section>
+  </div><!-- /products -->
+
+
+  <!-- ═══════════════════════════════════════════
+       REFERENCES SECTION
+  ═══════════════════════════════════════════ -->
+  <div x-show="currentSection === 'references'" x-transition:enter="section-view" style="display:none" class="page-top">
+    <section class="section section--lg">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.references.sectionHeading"></div>
+          <h1 class="section-heading" x-text="t.references.sectionHeading"></h1>
+          <p class="section-subheading" x-text="t.references.sectionSubheading"></p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="references__tabs">
+          <button class="references__tab" :class="{ 'references__tab--active': activeRefTab === 'slovenia' }"
+                  @click="activeRefTab = 'slovenia'" x-text="t.references.tabSlovenia"></button>
+          <button class="references__tab" :class="{ 'references__tab--active': activeRefTab === 'abroad' }"
+                  @click="activeRefTab = 'abroad'" x-text="t.references.tabAbroad"></button>
+        </div>
+
+        <!-- Slovenia Projects -->
+        <div x-show="activeRefTab === 'slovenia'" class="references__grid">
+          <template x-for="proj in t.references.sloveniaProjects" :key="proj.name">
+            <div class="reference-item">
+              <div class="reference-item__icon">
+                <template x-if="proj.logo">
+                  <img :src="proj.logo" :alt="proj.name" class="reference-item__logo-img"
+                       @error="$el.style.display='none'; $el.nextElementSibling.style.display='flex'" />
+                </template>
+                <span class="reference-item__initials" x-show="!proj.logo" x-text="proj.name.charAt(0)"></span>
+              </div>
+              <div class="reference-item__text">
+                <div class="reference-item__name" x-text="proj.name"></div>
+                <div class="reference-item__desc" x-text="proj.desc"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- International Projects -->
+        <div x-show="activeRefTab === 'abroad'" class="references__grid">
+          <template x-for="proj in t.references.abroadProjects" :key="proj.name">
+            <div class="reference-item">
+              <div class="reference-item__icon reference-item__icon--abroad">
+                <template x-if="proj.logo">
+                  <img :src="proj.logo" :alt="proj.name" class="reference-item__logo-img"
+                       @error="$el.style.display='none'; $el.nextElementSibling.style.display='flex'" />
+                </template>
+                <span class="reference-item__initials reference-item__initials--abroad" x-show="!proj.logo" x-text="proj.name.charAt(0)"></span>
+              </div>
+              <div class="reference-item__text">
+                <div class="reference-item__name" x-text="proj.name"></div>
+                <div class="reference-item__desc" x-text="proj.desc"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Stat summary -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-16)">
+          <div style="text-align: center; padding: var(--space-8); background: var(--gray-50); border-radius: var(--radius-xl); border: 1px solid var(--border)">
+            <div style="font-size: var(--text-4xl); font-weight: 800; color: var(--brand-fire); letter-spacing: -0.03em">14</div>
+            <div style="font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-2)" x-text="currentLang === 'sl' ? 'Projektov v Sloveniji' : currentLang === 'de' ? 'Projekte in Slowenien' : 'Projects in Slovenia'"></div>
+          </div>
+          <div style="text-align: center; padding: var(--space-8); background: var(--gray-50); border-radius: var(--radius-xl); border: 1px solid var(--border)">
+            <div style="font-size: var(--text-4xl); font-weight: 800; color: var(--brand-fire); letter-spacing: -0.03em">8</div>
+            <div style="font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-2)" x-text="currentLang === 'sl' ? 'Mednarodnih projektov' : currentLang === 'de' ? 'Internationale Projekte' : 'International projects'"></div>
+          </div>
+          <div style="text-align: center; padding: var(--space-8); background: var(--gray-50); border-radius: var(--radius-xl); border: 1px solid var(--border)">
+            <div style="font-size: var(--text-4xl); font-weight: 800; color: var(--brand-fire); letter-spacing: -0.03em">2</div>
+            <div style="font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-2)" x-text="currentLang === 'sl' ? 'Državi' : currentLang === 'de' ? 'Länder' : 'Countries'"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div><!-- /references -->
+
+
+  <!-- ═══════════════════════════════════════════
+       FAQ SECTION
+  ═══════════════════════════════════════════ -->
+  <div x-show="currentSection === 'faq'" x-transition:enter="section-view" style="display:none" class="page-top">
+    <section class="section faq section--lg">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.faq.sectionHeading"></div>
+          <h1 class="section-heading" x-text="t.faq.sectionHeading"></h1>
+          <p class="section-subheading" x-text="t.faq.sectionSubheading"></p>
+        </div>
+
+        <div class="faq__list">
+          <template x-for="(item, idx) in t.faq.items" :key="idx">
+            <div class="faq__item" :class="{ 'faq__item--open': activeFaq === idx }">
+              <button class="faq__question" @click="toggleFaq(idx)">
+                <span x-text="item.q"></span>
+                <div class="faq__icon">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </button>
+              <div class="faq__answer" x-text="item.a"></div>
+            </div>
+          </template>
+        </div>
+
+        <!-- CTA after FAQ -->
+        <div style="text-align: center; margin-top: var(--space-16); padding: var(--space-10); background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-xl)">
+          <p style="font-size: var(--text-lg); font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-3)"
+             x-text="currentLang === 'sl' ? 'Imate še vprašanje?' : currentLang === 'de' ? 'Haben Sie noch eine Frage?' : 'Still have a question?'"></p>
+          <p style="font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--space-6)"
+             x-text="currentLang === 'sl' ? 'Kontaktirajte nas in z veseljem vam odgovorimo.' : currentLang === 'de' ? 'Kontaktieren Sie uns und wir antworten gerne.' : 'Contact us and we\'ll be happy to help.'"></p>
+          <a class="btn btn--primary" href="javascript:void(0)" @click="navigate('contact')"
+             x-text="t.nav.contact"></a>
+        </div>
+
+      </div>
+    </section>
+  </div><!-- /faq -->
+
+
+  <!-- ═══════════════════════════════════════════
+       NEWS SECTION
+  ═══════════════════════════════════════════ -->
+  <div x-show="currentSection === 'news'" x-transition:enter="section-view" style="display:none" class="page-top">
+    <section class="section section--lg">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.news.sectionHeading"></div>
+          <h1 class="section-heading" x-text="t.news.sectionHeading"></h1>
+          <p class="section-subheading" x-text="t.news.sectionSubheading"></p>
+        </div>
+
+        <div class="news__grid">
+          <!-- Featured Article -->
+          <template x-for="article in t.news.articles" :key="article.title">
+            <div class="news-card--featured">
+              <div class="news-card__image-placeholder">
+                <div class="news-card__image-graphic" aria-hidden="true">
+                  <div class="news-card__image-temp">900°C</div>
+                  <div class="news-card__image-sub"
+                       x-text="currentLang === 'sl' ? 'Test toplotne prevodnosti' : currentLang === 'de' ? 'Wärmeleitfähigkeitstest' : 'Heat conductivity test'"></div>
+                </div>
+              </div>
+              <div class="news-card__body">
+                <div class="news-card__meta">
+                  <span class="news-card__tag" x-text="article.tag"></span>
+                  <span class="news-card__date" x-text="article.date"></span>
+                </div>
+                <h2 class="news-card__title" x-text="article.title"></h2>
+                <p class="news-card__excerpt" x-text="article.excerpt"></p>
+                <a class="btn btn--primary" href="javascript:void(0)" @click="navigate('contact')"
+                   x-text="currentLang === 'sl' ? 'Več informacij →' : currentLang === 'de' ? 'Mehr erfahren →' : 'Learn more →'"></a>
+              </div>
+            </div>
+          </template>
+
+          <!-- Sidebar Facts -->
+          <div class="news-sidebar">
+            <div class="news-sidebar__heading"
+                 x-text="currentLang === 'sl' ? 'Dejstva' : currentLang === 'de' ? 'Fakten' : 'Key facts'"></div>
+
+            <div class="news-sidebar__fact">
+              <div class="news-sidebar__fact-value">900°C</div>
+              <div class="news-sidebar__fact-label"
+                   x-text="currentLang === 'sl' ? 'Testna temperatura peči' : currentLang === 'de' ? 'Ofentesttemperatur' : 'Furnace test temperature'"></div>
+            </div>
+
+            <div class="news-sidebar__fact">
+              <div class="news-sidebar__fact-value">&lt;500°C</div>
+              <div class="news-sidebar__fact-label"
+                   x-text="currentLang === 'sl' ? 'Max. temperatura jekla' : currentLang === 'de' ? 'Max. Stahltemperatur' : 'Max. steel plate temp'"></div>
+            </div>
+
+            <div class="news-sidebar__fact">
+              <div class="news-sidebar__fact-value">10 cm</div>
+              <div class="news-sidebar__fact-label"
+                   x-text="currentLang === 'sl' ? 'Debelina izolacijske pene iz 1mm premaza' : currentLang === 'de' ? 'Dämmschaumdicke aus 1mm Beschichtung' : 'Insulating foam from 1mm coating'"></div>
+            </div>
+
+            <div class="news-sidebar__fact">
+              <div class="news-sidebar__fact-value">60 min</div>
+              <div class="news-sidebar__fact-label"
+                   x-text="currentLang === 'sl' ? 'Max. čas požarne odpornosti' : currentLang === 'de' ? 'Max. Brandwiderstandszeit' : 'Max. fire resistance time'"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-10); color: var(--text-muted); font-size: var(--text-sm)" x-text="t.news.noMoreArticles"></div>
+
+      </div>
+    </section>
+  </div><!-- /news -->
+
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT / VISION SECTION (embedded in home, also standalone)
+       We include About as part of the home flow below CTA
+  ═══════════════════════════════════════════ -->
+
+  <!-- ═══════════════════════════════════════════
+       CONTACT SECTION
+  ═══════════════════════════════════════════ -->
+  <div x-show="currentSection === 'contact'" x-transition:enter="section-view" style="display:none" class="page-top">
+    <section class="section contact section--lg">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label" x-text="t.contact.sectionHeading"></div>
+          <h1 class="section-heading" x-text="t.contact.sectionHeading"></h1>
+          <p class="section-subheading" x-text="t.contact.sectionSubheading"></p>
+        </div>
+
+        <div class="contact__grid">
+
+          <!-- Info Left -->
+          <div class="contact__info">
+
+            <div class="contact__info-item">
+              <div class="contact__info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__info-label" x-text="t.contact.address"></div>
+                <div class="contact__info-value">Obrtniška ulica 2<br/>1353 Borovnica, Slovenija</div>
+              </div>
+            </div>
+
+            <div class="contact__info-item">
+              <div class="contact__info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__info-label" x-text="t.contact.phone"></div>
+                <div class="contact__info-value">
+                  <a href="tel:+38640888828">+386 40 888 828</a><br/>
+                  <a href="tel:+38617546999" style="color: var(--text-secondary); font-size: var(--text-sm)">+386 1 754 69 99</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact__info-item">
+              <div class="contact__info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__info-label" x-text="t.contact.email"></div>
+                <div class="contact__info-value">
+                  <a href="mailto:info.tikra@gmail.com">info.tikra@gmail.com</a><br/>
+                  <a href="mailto:info@tikra.eu" style="color: var(--text-secondary); font-size: var(--text-sm)">info@tikra.eu</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact__info-item">
+              <div class="contact__info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact__info-label" x-text="t.contact.representative"></div>
+                <div class="contact__info-value" x-text="t.contact.repName"></div>
+              </div>
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="contact__map">
+              <div style="text-align: center; padding: var(--space-4);">
+                <div style="margin-bottom: var(--space-3); color: var(--brand-fire)">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-3); font-size: var(--text-sm)">Obrtniška ulica 2, 1353 Borovnica</div>
+                <a href="https://maps.google.com/?q=Obrtni%C5%A1ka+ulica+2,+1353+Borovnica" target="_blank" rel="noopener" class="btn btn--ghost btn--sm"
+                   x-text="currentLang === 'sl' ? 'Odpri v Google Maps' : currentLang === 'de' ? 'In Google Maps öffnen' : 'Open in Google Maps'"
+                   style="color: var(--brand-fire)"></a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact__form">
+            <h3 x-text="t.contact.formHeading"></h3>
+
+            <div x-show="formSubmitted" class="form-success" style="margin-bottom: var(--space-6)" x-text="t.contact.submitSuccess"></div>
+
+            <form @submit="submitForm($event)" x-show="!formSubmitted">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" x-text="currentLang === 'sl' ? 'Ime' : currentLang === 'de' ? 'Name' : 'Name'"></label>
+                  <input class="form-input" type="text" name="name" :placeholder="t.contact.namePlaceholder" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" x-text="currentLang === 'sl' ? 'E-pošta' : currentLang === 'de' ? 'E-Mail' : 'Email'"></label>
+                  <input class="form-input" type="email" name="email" :placeholder="t.contact.emailPlaceholder" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" x-text="currentLang === 'sl' ? 'Zadeva' : currentLang === 'de' ? 'Betreff' : 'Subject'"></label>
+                <input class="form-input" type="text" name="subject" :placeholder="t.contact.subjectPlaceholder" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" x-text="currentLang === 'sl' ? 'Sporočilo' : currentLang === 'de' ? 'Nachricht' : 'Message'"></label>
+                <textarea class="form-textarea" name="message" :placeholder="t.contact.messagePlaceholder" required></textarea>
+              </div>
+              <button class="btn btn--primary w-full" type="submit" x-text="t.contact.submitLabel"></button>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Company Details -->
+        <div style="margin-top: var(--space-16); padding: var(--space-8); background: var(--gray-50); border: 1px solid var(--border); border-radius: var(--radius-xl); display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-6);">
+          <div>
+            <div style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--space-2)"
+                 x-text="currentLang === 'sl' ? 'Podjetje' : currentLang === 'de' ? 'Unternehmen' : 'Company'"></div>
+            <div style="font-size: var(--text-sm); color: var(--text-primary); font-weight: 600">Tikra d.o.o.</div>
+            <div style="font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-1)"
+                 x-text="currentLang === 'sl' ? 'Proizvodnja in marketing' : currentLang === 'de' ? 'Produktion und Marketing' : 'Production and marketing'"></div>
+          </div>
+          <div>
+            <div style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--space-2)"
+                 x-text="t.footer.registration.split(':')[0]"></div>
+            <div style="font-size: var(--text-sm); color: var(--text-primary); font-family: var(--font-mono)">SI92862390</div>
+            <div style="font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-1); font-family: var(--font-mono)">5668930</div>
+          </div>
+          <div>
+            <div style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--space-2)">IBAN</div>
+            <div style="font-size: var(--text-sm); color: var(--text-primary); font-family: var(--font-mono)">SI56 0202 7001 7065 022</div>
+            <div style="font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-1)">NLB – Nova Ljubljanska Banka</div>
+          </div>
+          <div>
+            <div style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--space-2)"
+                 x-text="currentLang === 'sl' ? 'Ustanovljeno' : currentLang === 'de' ? 'Gegründet' : 'Founded'"></div>
+            <div style="font-size: var(--text-sm); color: var(--text-primary); font-family: var(--font-mono)">15. 09. 1992</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div><!-- /contact -->
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER (always visible)
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+
+        <!-- Brand -->
+        <div class="footer__brand">
+          <div class="footer__logo" style="gap: var(--space-2)">
+            <img src="images/tikra-logo2.png" alt="TIKRA" style="height:40px; width:auto; display:block;" />
+            <div class="footer__logo-text" style="font-size: var(--text-sm); color: rgba(255,255,255,0.5); font-weight:500">d.o.o.</div>
+          </div>
+          <p class="footer__tagline" x-text="t.footer.tagline"></p>
+          <div class="footer__legal-info">
+            <span class="footer__legal-item" x-text="t.footer.registration"></span>
+            <span class="footer__legal-item" x-text="t.footer.regNumber"></span>
+            <span class="footer__legal-item" x-text="t.footer.iban"></span>
+            <span class="footer__legal-item" x-text="t.footer.bank"></span>
+          </div>
+        </div>
+
+        <!-- Company Links -->
+        <div>
+          <div class="footer__col-heading" x-text="t.footer.companyLabel"></div>
+          <div class="footer__links">
+            <a class="footer__link" @click="navigate('home')"
+               x-text="t.nav.home" href="javascript:void(0)"></a>
+            <a class="footer__link" @click="navigate('references')"
+               x-text="t.nav.references" href="javascript:void(0)"></a>
+            <a class="footer__link" @click="navigate('news')"
+               x-text="t.nav.news" href="javascript:void(0)"></a>
+            <a class="footer__link" @click="navigate('faq')"
+               x-text="t.nav.faq" href="javascript:void(0)"></a>
+          </div>
+        </div>
+
+        <!-- Products Links -->
+        <div>
+          <div class="footer__col-heading" x-text="t.footer.productLabel"></div>
+          <div class="footer__links">
+            <template x-for="product in t.products.items" :key="product.id">
+              <a class="footer__link" @click="navigate('products')"
+                 x-text="product.name" href="javascript:void(0)"></a>
+            </template>
+          </div>
+        </div>
+
+        <!-- Contact Links -->
+        <div>
+          <div class="footer__col-heading" x-text="t.footer.contactLabel"></div>
+          <div class="footer__links">
+            <a class="footer__link" href="mailto:info.tikra@gmail.com">info.tikra@gmail.com</a>
+            <a class="footer__link" href="tel:+38640888828">+386 40 888 828</a>
+            <a class="footer__link" @click="navigate('contact')"
+               x-text="currentLang === 'sl' ? 'Kontaktni obrazec' : currentLang === 'de' ? 'Kontaktformular' : 'Contact form'"
+               href="javascript:void(0)"></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__rights" x-text="t.footer.rights"></div>
+        <div class="footer__made-by"
+             x-text="currentLang === 'sl' ? 'Borovnica, Slovenija' : currentLang === 'de' ? 'Borovnica, Slowenien' : 'Borovnica, Slovenia'"></div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body>
+</html>
