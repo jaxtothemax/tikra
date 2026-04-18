@@ -32,6 +32,11 @@ function tikraApp() {
       this.handleHash();
       window.addEventListener('hashchange', () => this.handleHash());
 
+      // Body scroll lock when mobile menu open
+      this.$watch('mobileMenuOpen', val => {
+        document.body.style.overflow = val ? 'hidden' : '';
+      });
+
       // Close menus on outside click
       document.addEventListener('click', (e) => {
         if (!e.target.closest('.lang-toggle')) {

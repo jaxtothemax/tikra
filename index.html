@@ -84,15 +84,24 @@
   </nav>
 
   <!-- Mobile Nav -->
-  <div class="nav__mobile" :class="{ 'nav__mobile--open': mobileMenuOpen }">
-    <template x-for="item in ['home','products','references','faq','news','contact']" :key="item">
-      <a class="nav__link" :class="{ 'nav__link--active': currentSection === item }"
-         @click="navigate(item); mobileMenuOpen = false" x-text="t.nav[item]" href="javascript:void(0)"></a>
-    </template>
-    <div class="lang-options">
-      <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'sl' }" @click="setLang('sl')">🇸🇮 SLO</button>
-      <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'en' }" @click="setLang('en')">🇬🇧 ENG</button>
-      <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'de' }" @click="setLang('de')">🇩🇪 DEU</button>
+  <div class="nav__mobile" :class="{ 'nav__mobile--open': mobileMenuOpen }" @click.self="mobileMenuOpen = false">
+    <div class="nav__mobile-inner">
+      <div class="nav__mobile-links">
+        <template x-for="item in ['home','products','references','faq','news','contact']" :key="item">
+          <a class="nav__link" :class="{ 'nav__link--active': currentSection === item }"
+             @click="navigate(item); mobileMenuOpen = false" x-text="t.nav[item]" href="javascript:void(0)"></a>
+        </template>
+      </div>
+      <div class="nav__mobile-footer">
+        <a class="btn btn--primary w-full" href="javascript:void(0)"
+           @click="navigate('contact'); mobileMenuOpen = false"
+           x-text="t.nav.contact"></a>
+        <div class="lang-options">
+          <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'sl' }" @click="setLang('sl')">🇸🇮 SLO</button>
+          <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'en' }" @click="setLang('en')">🇬🇧 ENG</button>
+          <button class="lang-chip" :class="{ 'lang-chip--active': currentLang === 'de' }" @click="setLang('de')">🇩🇪 DEU</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -330,7 +339,7 @@
                  :style="activeProduct === product.id ? `border-color: ${product.color}; box-shadow: 0 0 0 3px ${product.color}20` : ''">
 
               <!-- Card Header (always visible) -->
-              <div style="display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-6); align-items: center; padding: var(--space-6) var(--space-8);">
+              <div class="product-expand__header">
                 <div class="product-card__icon" style="width:56px; height:56px;" :style="`background: ${product.color}15`">
                   <template x-if="product.id === 'termostop'">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" :stroke="product.color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -369,7 +378,7 @@
 
               <!-- Expanded Content -->
               <div x-show="activeProduct === product.id" x-transition:enter="section-enter" style="border-top: 1px solid var(--border)">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
+                <div class="product-expand__grid">
                   <!-- Left: Description -->
                   <div style="padding: var(--space-8); border-right: 1px solid var(--border)">
                     <h3 style="font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-4); color: var(--text-primary);"
@@ -483,7 +492,7 @@
         </div>
 
         <!-- Stat summary -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-16)">
+        <div class="references__stats">
           <div style="text-align: center; padding: var(--space-8); background: var(--gray-50); border-radius: var(--radius-xl); border: 1px solid var(--border)">
             <div style="font-size: var(--text-4xl); font-weight: 800; color: var(--brand-fire); letter-spacing: -0.03em">14</div>
             <div style="font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-2)" x-text="currentLang === 'sl' ? 'Projektov v Sloveniji' : currentLang === 'de' ? 'Projekte in Slowenien' : 'Projects in Slovenia'"></div>
