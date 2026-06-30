@@ -562,6 +562,9 @@ input, textarea { font: inherit; }
 }
 
 @media (max-width: 900px) {
+  /* Links hidden -> collapse the 3-col grid to 2 cols so actions
+     stay pinned to the right instead of reflowing into the middle */
+  .nav__inner { grid-template-columns: 1fr auto; }
   .nav__links { display: none; }
   .nav__hamburger { display: flex; }
   /* Language switching moves into the hamburger menu on mobile */
