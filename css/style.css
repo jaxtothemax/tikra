@@ -345,8 +345,8 @@ input, textarea { font: inherit; }
 .nav--dark .nav__logo-sub  { color: rgba(255,255,255,0.35); }
 .nav--dark .lang-toggle__btn {
   background: transparent;
-  border-color: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.5);
+  border-color: rgba(255,255,255,0.22);
+  color: rgba(255,255,255,0.85);
 }
 .nav--dark .lang-toggle__btn:hover {
   border-color: var(--brand-fire);
@@ -427,10 +427,21 @@ input, textarea { font: inherit; }
   background: rgba(240, 195, 0, 0.06);
 }
 
-.lang-flag {
-  font-size: 1.15em;
-  line-height: 1;
+.lang-code {
   flex-shrink: 0;
+  min-width: 38px;
+  text-align: center;
+  padding: 2px 6px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+}
+.lang-option--active .lang-code {
+  color: var(--brand-fire);
+  background: rgba(240, 195, 0, 0.12);
 }
 
 /* Mobile menu toggle */

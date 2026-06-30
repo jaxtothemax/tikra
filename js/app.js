@@ -71,9 +71,9 @@ function tikraApp() {
       this.langMenuOpen = false;
       if (save) localStorage.setItem('tikra-lang', lang);
       document.documentElement.lang = lang === 'sl' ? 'sl' : lang === 'de' ? 'de' : 'en';
-      document.title = lang === 'sl' ? 'Tikra d.o.o. — Ognjevarni premazi'
-                     : lang === 'de' ? 'Tikra d.o.o. — Brandschutzbeschichtungen'
-                     : 'Tikra d.o.o. — Fire-Resistant Coatings';
+      document.title = lang === 'sl' ? 'Tikra d.o.o. — Ognjevarni premazi za jeklo in les | Borovnica'
+                     : lang === 'de' ? 'Tikra d.o.o. — Brandschutzbeschichtungen für Stahl und Holz | Borovnica'
+                     : 'Tikra d.o.o. — Fire-Resistant Coatings for Steel & Wood | Borovnica';
     },
 
     langLabel() {
