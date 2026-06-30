@@ -370,7 +370,8 @@ input, textarea { font: inherit; }
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  height: 44px;            /* match the adjacent CTA button height */
+  padding: 0 var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-size: var(--text-sm);
@@ -380,6 +381,9 @@ input, textarea { font: inherit; }
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease);
 }
+
+/* Keep nav action controls a consistent height on desktop */
+.nav__actions .btn { height: 44px; }
 
 .lang-toggle__btn:hover {
   border-color: var(--brand-fire);
@@ -560,6 +564,8 @@ input, textarea { font: inherit; }
 @media (max-width: 900px) {
   .nav__links { display: none; }
   .nav__hamburger { display: flex; }
+  /* Language switching moves into the hamburger menu on mobile */
+  .lang-toggle { display: none; }
 }
 
 /* ── 6. Page Spacer ───────────────────────────────────────── */
