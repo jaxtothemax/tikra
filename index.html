@@ -109,6 +109,10 @@
 
 <body x-data="tikraApp()" x-init="init()" @click="langMenuOpen = false">
 
+  <!-- Skip to content (keyboard accessibility) -->
+  <a class="skip-link" href="#main-content"
+     x-text="currentLang === 'sl' ? 'Preskoči na vsebino' : currentLang === 'de' ? 'Zum Inhalt springen' : 'Skip to content'">Skip to content</a>
+
   <!-- Static SEO fallback: indexable content for crawlers and no-JS clients -->
   <noscript>
     <header>
@@ -167,7 +171,9 @@
 
           <!-- Language Toggle Desktop -->
           <div class="lang-toggle" @click.stop>
-            <button class="lang-toggle__btn" @click="langMenuOpen = !langMenuOpen">
+            <button class="lang-toggle__btn" @click="langMenuOpen = !langMenuOpen"
+                    :aria-expanded="langMenuOpen" aria-haspopup="listbox"
+                    aria-label="Jezik / Language / Sprache">
               <span x-text="langFlag()" style="font-size:1.1em; line-height:1"></span>
               <span x-text="langLabel()"></span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -225,6 +231,8 @@
     </div>
   </div>
 
+
+  <main id="main-content" tabindex="-1">
 
   <!-- ═══════════════════════════════════════════
        HOME SECTION
@@ -336,7 +344,10 @@
 
         <div class="products-grid">
           <template x-for="product in t.products.items" :key="product.id">
-            <div class="product-card" @click="navigate('products')">
+            <div class="product-card" role="button" tabindex="0" :aria-label="product.name"
+                 @click="navigate('products')"
+                 @keydown.enter="navigate('products')"
+                 @keydown.space.prevent="navigate('products')">
               <div class="product-card__header">
                 <div class="product-card__icon" :style="`background: ${product.color}1A`">
                   <!-- Steel icon -->
@@ -647,7 +658,7 @@
         <div class="faq__list">
           <template x-for="(item, idx) in t.faq.items" :key="idx">
             <div class="faq__item" :class="{ 'faq__item--open': activeFaq === idx }">
-              <button class="faq__question" @click="toggleFaq(idx)">
+              <button class="faq__question" @click="toggleFaq(idx)" :aria-expanded="activeFaq === idx">
                 <span x-text="item.q"></span>
                 <div class="faq__icon">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -851,20 +862,20 @@
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label" x-text="currentLang === 'sl' ? 'Ime' : currentLang === 'de' ? 'Name' : 'Name'"></label>
-                  <input class="form-input" type="text" name="name" :placeholder="t.contact.namePlaceholder" required />
+                  <input class="form-input" type="text" name="name" :placeholder="t.contact.namePlaceholder" :aria-label="t.contact.namePlaceholder" autocomplete="name" required />
                 </div>
                 <div class="form-group">
                   <label class="form-label" x-text="currentLang === 'sl' ? 'E-pošta' : currentLang === 'de' ? 'E-Mail' : 'Email'"></label>
-                  <input class="form-input" type="email" name="email" :placeholder="t.contact.emailPlaceholder" required />
+                  <input class="form-input" type="email" name="email" :placeholder="t.contact.emailPlaceholder" :aria-label="t.contact.emailPlaceholder" autocomplete="email" required />
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label" x-text="currentLang === 'sl' ? 'Zadeva' : currentLang === 'de' ? 'Betreff' : 'Subject'"></label>
-                <input class="form-input" type="text" name="subject" :placeholder="t.contact.subjectPlaceholder" />
+                <input class="form-input" type="text" name="subject" :placeholder="t.contact.subjectPlaceholder" :aria-label="t.contact.subjectPlaceholder" />
               </div>
               <div class="form-group">
                 <label class="form-label" x-text="currentLang === 'sl' ? 'Sporočilo' : currentLang === 'de' ? 'Nachricht' : 'Message'"></label>
-                <textarea class="form-textarea" name="message" :placeholder="t.contact.messagePlaceholder" required></textarea>
+                <textarea class="form-textarea" name="message" :placeholder="t.contact.messagePlaceholder" :aria-label="t.contact.messagePlaceholder" required></textarea>
               </div>
               <button class="btn btn--primary w-full" type="submit" x-text="t.contact.submitLabel"></button>
             </form>
@@ -903,6 +914,8 @@
     </section>
   </div><!-- /contact -->
 
+
+  </main>
 
   <!-- ═══════════════════════════════════════════
        FOOTER (always visible)

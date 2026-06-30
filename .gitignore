@@ -1,3 +1,6 @@
 .DS_Store
 images/.DS_Store
 *.DS_Store
+
+# Local dev tooling (ui-ux-pro-max skill, Claude settings) — not part of the site
+.claude/
