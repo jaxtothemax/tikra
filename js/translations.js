@@ -44,7 +44,7 @@ const translations = {
         },
         {
           id: 'f50',
-          name: 'Tikra F50',
+          name: 'Tikra Flamgards',
           category: 'Zaščita lesa',
           tagline: 'Požarno-zaščitni premaz za les in kompozite',
           description: 'Požarno-zaščitni premaz za lesene strešne konstrukcije, notranje lesene površine, stiropor, iverno ploščo, vezano ploščo in karton. Upočasni gorenje in prepreči širjenje ognja.',
@@ -80,7 +80,7 @@ const translations = {
         },
       ],
       docHeading: 'Tehnična dokumentacija',
-      docText: 'Varnostne liste in tehnične liste dobite na zahtevo po e-pošti. Pišite nam na info.tikra@gmail.com ali info@tikra.eu.',
+      docText: 'Varnostne liste in tehnične liste dobite na zahtevo po e-pošti. Pišite nam na info.tikra@gmail.com.',
       docCta: 'Zahtevajte dokumentacijo',
     },
     about: {
@@ -153,8 +153,8 @@ const translations = {
           a: 'Tikra TERMOSTOP je namenjen zaščiti jeklenih profilov in plošč pred prekoračenjem temperature 550°C za obdobja 15, 30, 45 ali 60 minut, odvisno od faktorja profila in debeline nanosa. Nanaša se kot srednji sloj v trokomponentnem sistemu.',
         },
         {
-          q: 'Ali je Tikra F50 varen za bivalne prostore?',
-          a: 'Da, Tikra F50 je varen za ljudi in živali ter ekološko prijazen. Ne povzroča korozije na kovinskih delih konstrukcije in je primeren za notranje lesene površine ter strešne konstrukcije.',
+          q: 'Ali je Tikra Flamgards varen za bivalne prostore?',
+          a: 'Da, Tikra Flamgards je varen za ljudi in živali ter ekološko prijazen. Ne povzroča korozije na kovinskih delih konstrukcije in je primeren za notranje lesene površine ter strešne konstrukcije.',
         },
       ],
     },
@@ -246,7 +246,7 @@ const translations = {
         },
         {
           id: 'f50',
-          name: 'Tikra F50',
+          name: 'Tikra Flamgards',
           category: 'Wood Protection',
           tagline: 'Fire-protective coating for wood and composites',
           description: 'Fire-protective coating for wooden roof structures, interior surfaces, styrofoam, particle board, plywood, and cardboard. Slows combustion and prevents flame spread.',
@@ -282,7 +282,7 @@ const translations = {
         },
       ],
       docHeading: 'Technical Documentation',
-      docText: 'Safety data sheets and technical documents are available upon request. Contact us at info.tikra@gmail.com or info@tikra.eu.',
+      docText: 'Safety data sheets and technical documents are available upon request. Contact us at info.tikra@gmail.com.',
       docCta: 'Request documentation',
     },
     about: {
@@ -355,8 +355,8 @@ const translations = {
           a: 'Tikra TERMOSTOP is designed to protect steel profiles and plates from exceeding 550°C for periods of 15, 30, 45, or 60 minutes, depending on the profile factor and application thickness. It is applied as the middle layer in a three-component system.',
         },
         {
-          q: 'Is Tikra F50 safe for residential interiors?',
-          a: 'Yes, Tikra F50 is safe for humans and animals and is environmentally friendly. It does not cause corrosion on metal structural components and is suitable for interior wooden surfaces and roof structures.',
+          q: 'Is Tikra Flamgards safe for residential interiors?',
+          a: 'Yes, Tikra Flamgards is safe for humans and animals and is environmentally friendly. It does not cause corrosion on metal structural components and is suitable for interior wooden surfaces and roof structures.',
         },
       ],
     },
@@ -448,7 +448,7 @@ const translations = {
         },
         {
           id: 'f50',
-          name: 'Tikra F50',
+          name: 'Tikra Flamgards',
           category: 'Holzschutz',
           tagline: 'Brandschutzbeschichtung für Holz und Verbundwerkstoffe',
           description: 'Brandschutzbeschichtung für hölzerne Dachkonstruktionen, Innenoberflächen, Styropor, Spanplatten, Sperrholz und Karton. Verlangsamt die Verbrennung und verhindert die Flammenausbreitung.',
@@ -484,7 +484,7 @@ const translations = {
         },
       ],
       docHeading: 'Technische Dokumentation',
-      docText: 'Sicherheitsdatenblätter und technische Dokumente sind auf Anfrage erhältlich. Kontaktieren Sie uns unter info.tikra@gmail.com oder info@tikra.eu.',
+      docText: 'Sicherheitsdatenblätter und technische Dokumente sind auf Anfrage erhältlich. Kontaktieren Sie uns unter info.tikra@gmail.com.',
       docCta: 'Dokumentation anfragen',
     },
     about: {
@@ -557,8 +557,8 @@ const translations = {
           a: 'Tikra TERMOSTOP ist für den Schutz von Stahlprofilen und -platten vor Überschreitung von 550°C für Zeiträume von 15, 30, 45 oder 60 Minuten konzipiert, abhängig vom Profilfaktor und der Auftragsdicke. Es wird als mittlere Schicht in einem Dreikomponentensystem aufgetragen.',
         },
         {
-          q: 'Ist Tikra F50 sicher für Wohnräume?',
-          a: 'Ja, Tikra F50 ist sicher für Menschen und Tiere und umweltfreundlich. Es verursacht keine Korrosion an metallischen Konstruktionsteilen und ist für Innenholzoberflächen und Dachkonstruktionen geeignet.',
+          q: 'Ist Tikra Flamgards sicher für Wohnräume?',
+          a: 'Ja, Tikra Flamgards ist sicher für Menschen und Tiere und umweltfreundlich. Es verursacht keine Korrosion an metallischen Konstruktionsteilen und ist für Innenholzoberflächen und Dachkonstruktionen geeignet.',
         },
       ],
     },

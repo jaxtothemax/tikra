@@ -3,9 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tikra d.o.o. — Ognjevarni premazi</title>
-  <meta name="description" content="Tikra d.o.o. proizvaja certificirane ognjevarno premaze za zaščito jeklenih in lesenih konstrukcij od leta 1992." />
-  <meta name="keywords" content="ognjevarni premaz, požarna zaščita, TERMOSTOP, brandschutz, fire protection coating, intumescent" />
+
+  <!-- Primary SEO -->
+  <title>Tikra d.o.o. — Ognjevarni premazi za jeklo in les | Borovnica</title>
+  <meta name="description" content="Tikra d.o.o. iz Borovnice proizvaja certificirane ognjevarne premaze (TERMOSTOP, Tikra Flamgards) za požarno zaščito jeklenih in lesenih konstrukcij. Slovenski proizvajalec od leta 1992." />
+  <meta name="keywords" content="ognjevarni premaz, požarna zaščita, TERMOSTOP, Tikra Flamgards, brandschutz, fire protection coating, intumescent, zaščita jekla, zaščita lesa, Borovnica, Slovenija" />
+  <meta name="author" content="Tikra d.o.o." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#F0C300" />
+  <link rel="canonical" href="https://www.tikra.si/" />
+
+  <!-- Hreflang (multilingual: SL / EN / DE) -->
+  <link rel="alternate" hreflang="sl" href="https://www.tikra.si/?lang=sl" />
+  <link rel="alternate" hreflang="en" href="https://www.tikra.si/?lang=en" />
+  <link rel="alternate" hreflang="de" href="https://www.tikra.si/?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://www.tikra.si/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tikra d.o.o." />
+  <meta property="og:title" content="Tikra d.o.o. — Ognjevarni premazi za jeklo in les" />
+  <meta property="og:description" content="Certificirani ognjevarni premazi za požarno zaščito jeklenih in lesenih konstrukcij. Slovenski proizvajalec od leta 1992." />
+  <meta property="og:url" content="https://www.tikra.si/" />
+  <meta property="og:image" content="https://www.tikra.si/images/tikra-logo2.png" />
+  <meta property="og:locale" content="sl_SI" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:locale:alternate" content="de_DE" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tikra d.o.o. — Ognjevarni premazi za jeklo in les" />
+  <meta name="twitter:description" content="Certificirani ognjevarni premazi za požarno zaščito jeklenih in lesenih konstrukcij. Slovenski proizvajalec od leta 1992." />
+  <meta name="twitter:image" content="https://www.tikra.si/images/tikra-logo2.png" />
+
+  <!-- Structured data: Organization / LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Organization", "LocalBusiness"],
+        "@id": "https://www.tikra.si/#organization",
+        "name": "Tikra d.o.o.",
+        "url": "https://www.tikra.si/",
+        "logo": "https://www.tikra.si/images/tikra-logo2.png",
+        "image": "https://www.tikra.si/images/tikra-logo2.png",
+        "foundingDate": "1992",
+        "description": "Slovenski proizvajalec certificiranih ognjevarnih premazov za zaščito jeklenih in lesenih konstrukcij.",
+        "email": "info.tikra@gmail.com",
+        "telephone": "+386-40-888-828",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Obrtniška ulica 2",
+          "postalCode": "1353",
+          "addressLocality": "Borovnica",
+          "addressCountry": "SI"
+        },
+        "areaServed": ["SI", "EU"],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+386-40-888-828",
+          "email": "info.tikra@gmail.com",
+          "contactType": "sales",
+          "availableLanguage": ["Slovenian", "English", "German"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.tikra.si/#website",
+        "url": "https://www.tikra.si/",
+        "name": "Tikra d.o.o.",
+        "publisher": { "@id": "https://www.tikra.si/#organization" },
+        "inLanguage": ["sl", "en", "de"]
+      },
+      {
+        "@type": "Product",
+        "name": "TERMOSTOP",
+        "description": "Intumescentni ognjevarni premaz za zaščito jeklenih konstrukcij.",
+        "category": "Zaščita jekla",
+        "brand": { "@id": "https://www.tikra.si/#organization" }
+      },
+      {
+        "@type": "Product",
+        "name": "Tikra Flamgards",
+        "description": "Požarno-zaščitni premaz za les in kompozite.",
+        "category": "Zaščita lesa",
+        "brand": { "@id": "https://www.tikra.si/#organization" }
+      }
+    ]
+  }
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,11 +102,44 @@
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Favicon placeholder -->
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23F0C300'/><text y='.9em' font-size='70' x='14' fill='%23111111' font-family='system-ui' font-weight='900'>T</text></svg>" />
+  <link rel="apple-touch-icon" href="images/tikra-logo2.png" />
 </head>
 
 <body x-data="tikraApp()" x-init="init()" @click="langMenuOpen = false">
+
+  <!-- Static SEO fallback: indexable content for crawlers and no-JS clients -->
+  <noscript>
+    <header>
+      <h1>Tikra d.o.o. — Ognjevarni premazi za jeklo in les</h1>
+      <p>Tikra d.o.o. iz Borovnice je slovenski proizvajalec certificiranih ognjevarnih
+      (požarno-zaščitnih) premazov za jeklene in lesene konstrukcije. Z izkušnjami od leta 1992
+      ščitimo konstrukcije pred ognjem do 60 minut.</p>
+    </header>
+    <main>
+      <section>
+        <h2>Naši izdelki</h2>
+        <article>
+          <h3>TERMOSTOP — zaščita jekla</h3>
+          <p>Intumescentni ognjevarni premaz za požarno zaščito jeklenih konstrukcij.</p>
+        </article>
+        <article>
+          <h3>Tikra Flamgards — zaščita lesa</h3>
+          <p>Požarno-zaščitni premaz za lesene strešne konstrukcije, notranje lesene površine in kompozite.</p>
+        </article>
+      </section>
+      <section>
+        <h2>Kontakt</h2>
+        <address>
+          Tikra d.o.o., Obrtniška ulica 2, 1353 Borovnica, Slovenija<br />
+          Tel: <a href="tel:+38640888828">+386 40 888 828</a><br />
+          E-pošta: <a href="mailto:info.tikra@gmail.com">info.tikra@gmail.com</a>
+        </address>
+      </section>
+    </main>
+  </noscript>
+
 
   <!-- ═══════════════════════════════════════════
        NAVIGATION
@@ -687,8 +807,7 @@
               <div>
                 <div class="contact__info-label" x-text="t.contact.email"></div>
                 <div class="contact__info-value">
-                  <a href="mailto:info.tikra@gmail.com">info.tikra@gmail.com</a><br/>
-                  <a href="mailto:info@tikra.eu" style="color: var(--text-secondary); font-size: var(--text-sm)">info@tikra.eu</a>
+                  <a href="mailto:info.tikra@gmail.com">info.tikra@gmail.com</a>
                 </div>
               </div>
             </div>
